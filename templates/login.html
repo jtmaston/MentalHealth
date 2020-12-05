@@ -1,3 +1,5 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html>
 
@@ -8,23 +10,44 @@
     <title>Neumorphic Login - Free Bulma template</title>
     <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://unpkg.com/bulma@0.9.0/css/bulma.min.css" />
-    <link rel="stylesheet" type="text/css" href="../css/neumorphic-login.css">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/neumorphic-login.css' %}">
   </head>
 
   <body>
+
     <section class="hero is-fullheight">
+
       <div class="hero-body has-text-centered">
         <div class="login">
-          <img src="https://logoipsum.com/logo/logo-1.svg" width="325px" />
-          <form>
+          <h1 class="title has-text-centered section-title">
+           Login
+         </h1>
+
+          {% if messages %}
+            {% for message in messages %}
+              {% if message.tags == 'error' %}
+                <div class="notification is-danger">
+                    {{message}}
+                </div>
+              {%endif%}
+              {% if message.tags == 'success' %}
+                <div class="notification is-warning">
+                    {{message}}
+                </div>
+              {%endif%}
+            {% endfor %}
+          {% endif %}
+          <form method="POST">
+            {% csrf_token %}
+
             <div class="field">
               <div class="control">
-                <input class="input is-medium is-rounded" type="email" placeholder="hello@example.com" autocomplete="username" required />
+                <input class="input is-medium is-rounded" type="text" placeholder="Username" autocomplete="username" required name="usr"/>
               </div>
             </div>
             <div class="field">
               <div class="control">
-                <input class="input is-medium is-rounded" type="password" placeholder="**********" autocomplete="current-password" required />
+                <input class="input is-medium is-rounded" type="password" placeholder="Password" autocomplete="current-password" required name="pwd" />
               </div>
             </div>
             <br />

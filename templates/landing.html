@@ -97,21 +97,33 @@
                   <li class="is-active">
                     <a href="/">Home</a>
                   </li>
-                  <li>
-                    <a href="/entries">Entries</a>
-                  </li>
-                  <li>
-                    <a href="/stats">Stats</a>
-                  </li>
-                  <li>
-                    <a href="/calendar">Calendar</a>
-                  </li>
-                  <li>
-                    <a href="/radio">Radio</a>
-                  </li>
-                  <li>
-                    <a href="/dashboard">Dashboard</a>
-                  </li>
+                  {% if user.is_authenticated %}
+                    <li>
+                      <a href="/entries">Entries</a>
+                    </li>
+                    <li>
+                      <a href="/stats">Stats</a>
+                    </li>
+                    <li>
+                      <a href="/calendar">Calendar</a>
+                    </li>
+                    <li>
+                      <a href="/radio">Radio</a>
+                    </li>
+                    <li>
+                      <a href="/dashboard">Dashboard</a>
+                    </li>
+
+                    <li>
+                      <a href="/logout"> Logout </a>
+                    </li>
+
+                  {% else %}
+                    <li>
+                      <a href="/login">Login</a>
+                    </li>
+
+                  {% endif %}
                 </ul>
               </div>
             </div>
@@ -188,8 +200,6 @@
               <h1 class="title has-text-centered section-title">What we offer</h1>
 
               <h2 class="subtitle">
-               <!-- Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua --!>
               </h2>
               <br />
             </div>
@@ -290,18 +300,18 @@
                 <div class="hero-body has-text-centered">
                   <div class="login">
                     {% if messages %}
-					{% for message in messages %}
-					{% if message.tags == 'error' %}
-					<div class="notification is-danger">
-						{{message}}
-					</div>
-					{%endif%}
-					{% if message.tags == 'success' %}
-					<div class="notification is-warning">
-						{{message}}
-					</div>
-					{%endif%}
-					{% endfor %}
+                      {% for message in messages %}
+                        {% if message.tags == 'error' %}
+                          <div class="notification is-danger">
+                              {{message}}
+                          </div>
+                        {%endif%}
+                        {% if message.tags == 'success' %}
+                          <div class="notification is-warning">
+                              {{message}}
+                          </div>
+                        {%endif%}
+                      {% endfor %}
 					{% endif %}
                     <form method="POST">
                       {% csrf_token %}
@@ -334,7 +344,7 @@
                     <nav class="level">
                       <div class="level-item has-text-centered">
                         <div>
-                          <a href="#">Already a member? Log in!</a>
+                          <a href="/login">Already a member? Log in!</a>
                         </div>
                       </div>
                     </nav>

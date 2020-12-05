@@ -1,4 +1,5 @@
-from django.contrib.auth import login
+from django.contrib.auth import login, authenticate, logout
+from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.http import Http404
@@ -26,7 +27,7 @@ class Index(View):
             messages.error(request, 'Passwords do not match!')
             return redirect(self.failure_url)
         try:
-            get_object_or_404(User, username=username )
+            get_object_or_404(User, username=username)
         except Http404:
             try:
                 get_object_or_404(User, email=email)
@@ -41,3 +42,49 @@ class Index(View):
         else:
             messages.error(request, "Username already exists!")
             return redirect(self.failure_url)
+
+
+class Login(View):
+    template_name = 'login.html'
+    form_class = AuthenticationForm
+    success_url = '/dashboard/'
+    failure_url = '/login'
+
+    def get(self, request):
+        if not request.user.is_authenticated:
+            return render(request, template_name=self.template_name)
+        else:
+            messages.warning(request, 'You are already logged in!')
+            return redirect(self.success_url)
+
+    def post(self, request):
+        username = request.POST['usr']
+        password = request.POST['pwd']
+        
+
+        try:
+            username = get_object_or_404(User, email=username)
+        except Http404:
+            pass
+
+        user = authenticate(username=username, password=password)
+
+        if user is not None:
+            login(request, user)
+            return redirect(self.success_url)
+        else:
+            messages.error(request, 'Username or password incorrect!')
+            return redirect(self.failure_url)
+
+
+class Dashboard(View):
+    def get(self, request):
+        pass
+
+    def post(self, request):
+        pass
+
+
+def Logout(request):
+    logout(request)
+    return redirect('/')
