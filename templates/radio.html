@@ -1,0 +1,64 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Radio</title>
+    <script src="https://kit.fontawesome.com/15181efa86.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://unpkg.com/bulma@0.9.0/css/bulma.min.css" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/ghost-blog.css' %}">
+  </head>
+
+  <section class="hero is-medium">
+    <div class="hero-head">
+      <div class="container">
+        <nav class="navbar" role="navigation" aria-label="main navigation">
+
+          <div id="navbarBasicExample" class="navbar-menu">
+            <div class="navbar-start">
+              <a class="navbar-item is-active" href="/dashboard">
+                Go back
+              </a>
+            </div>
+          </div>
+        </nav>
+      </div>
+    </div>
+    <div class="hero-body">
+      <div class="container has-text-centered">
+        <h2 class="subtitle">
+          Shhh! Mood radio. No interruptions. Just music.
+        </h2>
+      </div>
+    </div>
+  </section>
+  <section class="blog-posts">
+    <div class="container">
+      <div class="columns">
+        <div class="column is-10 is-offset-1">
+          <div class="columns featured-post is-multiline">
+            <div class="column is-12 post">
+              <article class="columns featured">
+                <div class="column is-7 post-img ">
+                  <iframe width="560" height="315" src="{{ music_link }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+                <div class="column is-5 featured-content va">
+                  <div>
+                    <h1 class="title post-title">How are you feeling today?</h1>
+                    <p class="post-excerpt"> {{ motivational_text }}</p>
+                    <br>
+                  </div>
+
+                </div>
+              </article>
+            </div>
+          </div>
+          <hr>
+        </div>
+      </div>
+    </div>
+  </section>

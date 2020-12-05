@@ -9,4 +9,5 @@ urlpatterns = [
     path('logout/', views.Logout),
     path('new_entry/', views.NewEntry.as_view()),
     path('entries/', views.Entries.as_view()),
+    path('radio/', views.Radio.as_view()),
 ]

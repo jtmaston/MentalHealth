@@ -1,5 +1,5 @@
 from json import dumps, loads
-from random import random, randint
+from random import random, randint, choice
 
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.forms import AuthenticationForm
@@ -187,6 +187,38 @@ class NewEntry(View):
 
     def post(self, request):
         pass
+
+
+class Radio(View):
+    template_name = 'radio.html'
+    songs = [
+
+        "https://www.youtube.com/embed/neV3EPgvZ3g",
+        "https://www.youtube.com/embed/2v5iWf2KDCw",
+        "https://www.youtube.com/embed/2v5iWf2KDCw",
+        "https://www.youtube.com/embed/qvUWA45GOMg",
+        "https://www.youtube.com/embed/rJlY1uKL87k",
+        "https://www.youtube.com/embed/GdzrrWA8e7A",
+    ]
+
+    def get(self, request):
+
+        weekly_mood = 0
+        last_seven = Entry.objects.filter().order_by('-id')[:7]
+
+        for i in last_seven:
+            weekly_mood += i.mood
+
+        weekly_mood = int(weekly_mood / 7)
+
+        if weekly_mood >= 2:
+            with open("static/text/happy.txt", 'r') as f:
+                quote_list = f.readlines()
+        else:
+            with open("static/text/sad.txt", 'r') as f:
+                quote_list = f.readline()
+
+        return render(template_name=self.template_name, request=request, context={'music_link': choice(self.songs), 'motivational_text': choice(quote_list)})
 
 
 def Logout(request):
