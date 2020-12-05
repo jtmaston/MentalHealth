@@ -111,17 +111,26 @@ class Dashboard(View):
         pass
 
 
-class New_entry(View):
+class Entries(View):
     template_name = 'entries.html'
 
     def get(self, request):
         return render(template_name=self.template_name, request=request)
 
     def post(self, request):
-        print(request)
+        activity_categories = {
+            'sleep': ['sleep-early', 'good-sleep', 'medium-sleep', 'bad-sleep'],
+            'hobbies': ['movies', 'reading', 'gaming', 'travel'],
+            'social': ['family', 'friends', 'date', 'party'],
+            'health': ['exercise', 'drink-water', 'walk'],
+            'self-improvement': ['meditation', 'kindness', 'breathing-techniques'],
+            'food': ['eat-healthy', 'home-made', 'fast-food']
+        }
+
+        return redirect('/entries')
 
 
-class Entries(View):
+class NewEntry(View):
     template_name = 'new_entry.html'
 
     def get(self, request):
