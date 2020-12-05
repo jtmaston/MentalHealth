@@ -274,7 +274,7 @@
       </div>
 
 
-      <div class="section-light contact" id="contact">
+      <div class="section-light contact" id="signup">
         <div class="container">
           <div
             class="columns is-multiline"
@@ -289,29 +289,44 @@
             <div class="column is-8 is-offset-2">
                 <div class="hero-body has-text-centered">
                   <div class="login">
-                    <form>
+                    {% if messages %}
+					{% for message in messages %}
+					{% if message.tags == 'error' %}
+					<div class="notification is-danger">
+						{{message}}
+					</div>
+					{%endif%}
+					{% if message.tags == 'success' %}
+					<div class="notification is-warning">
+						{{message}}
+					</div>
+					{%endif%}
+					{% endfor %}
+					{% endif %}
+                    <form method="POST">
+                      {% csrf_token %}
                       <div class="field">
                         <div class="control">
-                          <input class="input is-medium is-rounded" type="text" placeholder="Username" autocomplete="username" required />
+                          <input class="input is-medium is-rounded" type="text" placeholder="Username" autocomplete="username" name="usr" required />
                         </div>
                       </div>
                       <div class="field">
                         <div class="control">
-                          <input class="input is-medium is-rounded" type="email" placeholder="Email" autocomplete="username" required />
+                          <input class="input is-medium is-rounded" type="email" placeholder="Email" autocomplete="email" name="addr" required />
                         </div>
                       </div>
                       <div class="field">
                         <div class="control">
-                          <input class="input is-medium is-rounded" type="password" placeholder="Password" autocomplete="current-password" required />
+                          <input class="input is-medium is-rounded" type="password" placeholder="Password" autocomplete="current-password" name="pwd" required />
                         </div>
                       </div>
                        <div class="field">
                         <div class="control">
-                          <input class="input is-medium is-rounded" type="password" placeholder="Password ( again )" autocomplete="current-password" required />
+                          <input class="input is-medium is-rounded" type="password" placeholder="Password ( again )" autocomplete="current-password" name="pwd_r" required />
                         </div>
                       </div>
                       <br />
-                      <button class="button is-block is-fullwidth is-primary is-medium is-rounded" type="submit">
+                      <button class="button is-block is-fullwidth is-primary is-medium is-rounded" type="submit" onclick="document.querySelector('.button').classList.toggle('is-active');">
                         Sign up
                       </button>
                     </form>
