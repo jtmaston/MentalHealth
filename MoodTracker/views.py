@@ -1,10 +1,17 @@
+from json import dumps
+from random import random
+
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.http import Http404
 from django.shortcuts import render, redirect, get_object_or_404
-from datetime import date
+from django.utils import timezone
+import pytz
+
+from datetime import date, datetime
+from .models import Entry
 
 # Create your views here.
 from django.views import View
@@ -95,7 +102,14 @@ class Dashboard(View):
 
     weekly_mood = 0
     fave_activity = 0
-    days = []
+    days = [
+        date.fromisoformat("2020-12-06"),
+        date.fromisoformat("2020-12-05"),
+        date.fromisoformat("2020-12-04"),
+        date.fromisoformat("2020-12-03"),
+        date.fromisoformat("2020-12-02"),
+        date.fromisoformat("2020-12-01")
+    ]
 
     context = {
         'entries': 34,
@@ -126,6 +140,26 @@ class Entries(View):
             'self-improvement': ['meditation', 'kindness', 'breathing-techniques'],
             'food': ['eat-healthy', 'home-made', 'fast-food']
         }
+
+        activity = {}
+
+        for i in request.POST.keys():
+            for j in activity_categories.keys():
+                if i in activity_categories[j]:
+                    try:
+                        activity[j] += i
+                    except KeyError:
+                        activity[j] = [i]
+
+        print(activity)
+
+       # query = Entry.objects.create(
+       #     date_added=timezone.now(),                                      # DONE
+       #     author=get_object_or_404(User, username=request.user),          # DONE
+       #     mood=0,                                                         # TODO
+       #     activity=dumps({'health': 'exercise', 'food': 'eat_healthy'}),  # DONE
+       #     note="This is a test note"                                      # TODO
+       # )
 
         return redirect('/entries')
 
