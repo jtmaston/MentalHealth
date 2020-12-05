@@ -65,8 +65,8 @@
                 <div class="tile is-parent">
                     <article class="tile is-child box">
                         <p class="title">
-                            <i class="far fa-dumbbell "></i>
-                            <p class="subtitle">Sports</p>
+                            <i class="far {{ activity_icon }} "></i>
+                            <p class="subtitle">{{ activity }}</p>
                         </p>
                         <p class="subtitle">Favorite activity</p>
                     </article>
@@ -124,7 +124,9 @@
 
     <script async type="text/javascript" src="{% static 'js/bulma.js' %}"></script>
 
-    <input type="hidden" id="" name="variable" value="{{ variable }}">
+    <input type="hidden" id="weekly_moods" name="weekly_moods" value="{{ weekly_moods }}">
+    <input type="hidden" id="mood_percentages" name="mood_percentages" value="{{ percentages }}">
+
 
     <script src="{% static 'js/dashboard.js' %}"></script>
 {% endblock %}

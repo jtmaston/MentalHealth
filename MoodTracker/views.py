@@ -1,5 +1,5 @@
-from json import dumps
-from random import random
+from json import dumps, loads
+from random import random, randint
 
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.forms import AuthenticationForm
@@ -87,35 +87,50 @@ class Login(View):
 mood_icons = {0: "fa-sad-cry", 1: "fa-frown", 2: "fa-smile", 3: "fa-laugh-beam"}
 
 activity_icons = {
-    0: ("Sleep", "fa-bed"),
-    1: ("Hobbies", "fa-guitar"),
-    2: ("Social", "fa-users"),
-    3: ("Health", "fa-medkit"),
-    4: ("Self Improvement", "fa-laugh-beam"),
-    5: ("Food", "fa-hamburger"),
-    6: ("Other", "")
+    "sleep": "fa-bed",
+    "hobbies": "fa-guitar",
+    "social": "fa-users",
+    "health": "fa-medkit",
+    "self-improvement": "fa-laugh-beam",
+    "food": "fa-hamburger",
+    "other": ""
 }
 
 
 class Dashboard(View):
     template_name = 'dashboard.html'
 
+    last_seven = Entry.objects.filter().order_by('-id')[:7]
+
     weekly_mood = 0
-    fave_activity = 0
-    days = [
-        date.fromisoformat("2020-12-06"),
-        date.fromisoformat("2020-12-05"),
-        date.fromisoformat("2020-12-04"),
-        date.fromisoformat("2020-12-03"),
-        date.fromisoformat("2020-12-02"),
-        date.fromisoformat("2020-12-01")
-    ]
+    weekly_moods = []
+    weekly_activities = []
+
+    for i in last_seven:
+        weekly_mood += i.mood
+        weekly_moods += [i.mood]
+        weekly_activities += loads(i.activity).keys()
+
+    weekly_activity = max(set(weekly_activities), key=weekly_activities.count)
+    weekly_mood = int(weekly_mood / 7)
+
+    weekly_moods = weekly_moods[::-1]
+    percentages = []
+
+    for i in range(1, 5):
+        percentages.append(weekly_moods.count(i))
+    percentages = [int(i / 7 * 100) for i in percentages]
+
+    print(percentages)
 
     context = {
-        'entries': 34,
+        'entries': Entry.objects.count(),
         'entry_streak': 4,
         'mood': mood_icons[weekly_mood],
-        'activity': activity_icons[fave_activity]
+        'activity': weekly_activity,
+        'activity_icon': activity_icons[weekly_activity],
+        'weekly_moods': weekly_moods,
+        'percentages': percentages
     }
 
     def get(self, request):
@@ -153,13 +168,13 @@ class Entries(View):
 
         print(activity)
 
-       # query = Entry.objects.create(
-       #     date_added=timezone.now(),                                      # DONE
-       #     author=get_object_or_404(User, username=request.user),          # DONE
-       #     mood=0,                                                         # TODO
-       #     activity=dumps({'health': 'exercise', 'food': 'eat_healthy'}),  # DONE
-       #     note="This is a test note"                                      # TODO
-       # )
+        # query = Entry.objects.create(
+        #     date_added=timezone.now(),                                      # DONE
+        #     author=get_object_or_404(User, username=request.user),          # DONE
+        #     mood=0,                                                         # TODO
+        #     activity=dumps({'health': 'exercise', 'food': 'eat_healthy'}),  # DONE
+        #     note="This is a test note"                                      # TODO
+        # )
 
         return redirect('/entries')
 

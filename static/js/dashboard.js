@@ -1,11 +1,14 @@
 //doughnut
+
+var dataset_percentages = JSON.parse(document.getElementById("mood_percentages").value);
+console.log(typeof(dataset_percentages))
 var ctxD = document.getElementById("doughnutChart").getContext('2d');
 var myLineChart = new Chart(ctxD, {
 type: 'doughnut',
 data: {
 labels: ["Very sad", "Sad", "Happy", "Very happy!"],
 datasets: [{
-data: [50, 10, 30, 10],
+data: dataset_percentages,
 backgroundColor: ["#FF2D00", "#FF8000", "#9EFF00", "#08FF00"],
 hoverBackgroundColor: ["#FF2D00", "#FF8000", "#9EFF00", "#08FF00"]
 }]
@@ -52,6 +55,7 @@ responsive: true
 
 
 //line
+var dataset_moods = JSON.parse(document.getElementById("weekly_moods").value);
 var ctxL = document.getElementById("lineChart").getContext('2d');
 var myLineChart = new Chart(ctxL, {
 type: 'line',
@@ -60,7 +64,7 @@ data: {
     datasets: [
         {
             label: "Mood per days",
-            data: [0, 2, 1, 4, 1, 4, 1],
+            data: dataset_moods,
             backgroundColor: [
                 'rgba(105, 0, 132, .2)',
             ],
