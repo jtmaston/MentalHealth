@@ -77,17 +77,31 @@ class Login(View):
 
 
 class Dashboard(View):
-
     template_name = 'dashboard.html'
 
+    mood_icons = {0: "fa-sad-cry", 1: "fa-frown", 2: "fa-smile", 3: "fa-laugh-beam"}
+    activity_icons = {
+        0: ("Sports", "fa-dumbbell"),
+        1: ("Music", "fa-dumbbell"),
+        2: ("Reading", "fa-dumbbell"),
+        3: ("Socializing", "fa-dumbbell"),
+        4: ("Cooking", "fa-dumbbell"),
+        5: ("Travelling", "fa-dumbbell"),
+        6: ("", "")
+
+    }
+    mood = 0
+
+    context = {'entries': 34, 'entry_streak': 4, 'mood' :  mood_icons[mood]}
+
     def get(self, request):
-        return render(template_name=self.template_name, request=request)
+        return render(template_name=self.template_name, request=request, context=self.context)
 
     def post(self, request):
         pass
 
-class Entries(View):
 
+class Entries(View):
     template_name = 'entries.html'
 
     def get(self, request):
@@ -96,8 +110,8 @@ class Entries(View):
     def post(self, request):
         pass
 
-class New_entry(View):
 
+class New_entry(View):
     template_name = 'new_entry.html'
 
     def get(self, request):
@@ -105,6 +119,7 @@ class New_entry(View):
 
     def post(self, request):
         pass
+
 
 def Logout(request):
     logout(request)

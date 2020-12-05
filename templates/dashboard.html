@@ -11,6 +11,12 @@
 
 {% block body %}
 
+<script
+      src="https://kit.fontawesome.com/2828f7885a.js"
+      integrity="sha384-WAsFbnLEQcpCk8lM1UTWesAf5rGTCvb2Y+8LvyjAAcxK1c3s5c0L+SYOgxvc6PWG"
+      crossorigin="anonymous"
+    ></script>
+
 <div class="container">
         <nav class="breadcrumb" aria-label="breadcrumbs">
             <ul>
@@ -36,26 +42,33 @@
             <div class="tile is-ancestor has-text-centered">
                 <div class="tile is-parent">
                     <article class="tile is-child box">
+                        <p class="title"> </p>
                         <p class="title"> {{ entries }}</p>
                         <p class="subtitle">Entries</p>
                     </article>
                 </div>
                 <div class="tile is-parent">
                     <article class="tile is-child box">
+                        <p class="title"></p>
                         <p class="title">{{ entry_streak }}</p>
                         <p class="subtitle">Longest consecutive days</p>
                     </article>
                 </div>
                 <div class="tile is-parent">
                     <article class="tile is-child box">
-                        <p class="title">3.4k</p>
-                        <p class="subtitle">Open Orders</p>
+                        <p class="title">
+                             <i class="far {{ mood }} fa-2x"></i>
+                        </p>
+                        <p class="subtitle">Mood over 7 days</p>
                     </article>
                 </div>
                 <div class="tile is-parent">
                     <article class="tile is-child box">
-                        <p class="title">19</p>
-                        <p class="subtitle">Exceptions</p>
+                        <p class="title">
+                            <i class="far fa-dumbbell "></i>
+                            <p class="subtitle">Sports</p>
+                        </p>
+                        <p class="subtitle">Favorite activity</p>
                     </article>
                 </div>
             </div>
@@ -65,7 +78,7 @@
                 <div class="card events-card">
                     <header class="card-header">
                         <p class="card-header-title">
-                            Events
+                            Mood overview
                         </p>
                         <a href="#" class="card-header-icon" aria-label="more options">
           <span class="icon">
@@ -75,67 +88,17 @@
                     </header>
                     <div class="card-table">
                         <div class="content">
-                            <table class="table is-fullwidth is-striped">
-                                <tbody>
-                                    <tr>
-                                        <td width="5%"><i class="fa fa-bell-o"></i></td>
-                                        <td>Lorum ipsum dolem aire</td>
-                                        <td class="level-right"><a class="button is-small is-primary" href="#">Action</a></td>
-                                    </tr>
-                                    <tr>
-                                        <td width="5%"><i class="fa fa-bell-o"></i></td>
-                                        <td>Lorum ipsum dolem aire</td>
-                                        <td class="level-right"><a class="button is-small is-primary" href="#">Action</a></td>
-                                    </tr>
-                                    <tr>
-                                        <td width="5%"><i class="fa fa-bell-o"></i></td>
-                                        <td>Lorum ipsum dolem aire</td>
-                                        <td class="level-right"><a class="button is-small is-primary" href="#">Action</a></td>
-                                    </tr>
-                                    <tr>
-                                        <td width="5%"><i class="fa fa-bell-o"></i></td>
-                                        <td>Lorum ipsum dolem aire</td>
-                                        <td class="level-right"><a class="button is-small is-primary" href="#">Action</a></td>
-                                    </tr>
-                                    <tr>
-                                        <td width="5%"><i class="fa fa-bell-o"></i></td>
-                                        <td>Lorum ipsum dolem aire</td>
-                                        <td class="level-right"><a class="button is-small is-primary" href="#">Action</a></td>
-                                    </tr>
-                                    <tr>
-                                        <td width="5%"><i class="fa fa-bell-o"></i></td>
-                                        <td>Lorum ipsum dolem aire</td>
-                                        <td class="level-right"><a class="button is-small is-primary" href="#">Action</a></td>
-                                    </tr>
-                                    <tr>
-                                        <td width="5%"><i class="fa fa-bell-o"></i></td>
-                                        <td>Lorum ipsum dolem aire</td>
-                                        <td class="level-right"><a class="button is-small is-primary" href="#">Action</a></td>
-                                    </tr>
-                                    <tr>
-                                        <td width="5%"><i class="fa fa-bell-o"></i></td>
-                                        <td>Lorum ipsum dolem aire</td>
-                                        <td class="level-right"><a class="button is-small is-primary" href="#">Action</a></td>
-                                    </tr>
-                                    <tr>
-                                        <td width="5%"><i class="fa fa-bell-o"></i></td>
-                                        <td>Lorum ipsum dolem aire</td>
-                                        <td class="level-right"><a class="button is-small is-primary" href="#">Action</a></td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                            <canvas id="doughnutChart"></canvas>
                         </div>
                     </div>
-                    <footer class="card-footer">
-                        <a href="#" class="card-footer-item">View All</a>
-                    </footer>
+
                 </div>
             </div>
             <div class="column is-6">
                 <div class="card">
                     <header class="card-header">
                         <p class="card-header-title">
-                            Inventory Search
+                            Moods and activities
                         </p>
                         <a href="#" class="card-header-icon" aria-label="more options">
           <span class="icon">
@@ -145,49 +108,17 @@
                     </header>
                     <div class="card-content">
                         <div class="content">
-                            <div class="control has-icons-left has-icons-right">
-                                <input class="input is-large" type="text" placeholder="">
-                                <span class="icon is-medium is-left">
-              <i class="fa fa-search"></i>
-            </span>
-                                <span class="icon is-medium is-right">
-              <i class="fa fa-check"></i>
-            </span>
-                            </div>
+                            <canvas id="radarChart"></canvas>
                         </div>
                     </div>
-                </div>
-                <div class="card">
-                    <header class="card-header">
-                        <p class="card-header-title">
-                            User Search
-                        </p>
-                        <a href="#" class="card-header-icon" aria-label="more options">
-          <span class="icon">
-            <i class="fa fa-angle-down" aria-hidden="true"></i>
-          </span>
-        </a>
-                    </header>
-                    <div class="card-content">
-                        <div class="content">
-                            <div class="control has-icons-left has-icons-right">
-                                <input class="input is-large" type="text" placeholder="">
-                                <span class="icon is-medium is-left">
-              <i class="fa fa-search"></i>
-            </span>
-                                <span class="icon is-medium is-right">
-              <i class="fa fa-check"></i>
-            </span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            </div>
+
             </div>
         </div>
     </div>
 
     <script async type="text/javascript" src="{% static 'js/bulma.js' %}"></script>
-
+    <script src="{% static 'js/dashboard.js' %}"></script>
 {% endblock %}
 
 
@@ -198,6 +129,5 @@
     <script src="{% static 'js/jquery.min.js' %}"></script>
     <script src="{% static 'js/mdb.js' %} "></script>
     <script src="{% static 'js/mdb.min.js' %} "></script>
-    <script src="{% static 'js/dashboard.js' %}"></script>
 
 {% endblock %}

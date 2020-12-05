@@ -1,18 +1,51 @@
+//doughnut
+var ctxD = document.getElementById("doughnutChart").getContext('2d');
+var myLineChart = new Chart(ctxD, {
+type: 'doughnut',
+data: {
+labels: ["Very sad", "Sad", "Happy", "Very happy!"],
+datasets: [{
+data: [50, 10, 30, 10],
+backgroundColor: ["#FF2D00", "#FF8000", "#9EFF00", "#08FF00"],
+hoverBackgroundColor: ["#FF2D00", "#FF8000", "#9EFF00", "#08FF00"]
+}]
+},
+options: {
+responsive: true
+}
+});
 
-
-
-var ctxP = document.getElementById("pieChart").getContext('2d');
-var myPieChart = new Chart(ctxP, {
-    type: 'pie',
-    data: {
-    labels: ["Red", "Green", "Yellow", "Grey", "Dark Grey"],
+//radar
+var ctxR = document.getElementById("radarChart").getContext('2d');
+var myRadarChart = new Chart(ctxR, {
+type: 'radar',
+data: {
+    labels: ["Sports", "Music", "Reading", "Socializing", "Cooking", "Travelling", "Other"],
     datasets: [{
-    data: [300, 50, 100, 40, 120],
-    backgroundColor: ["#F7464A", "#46BFBD", "#FDB45C", "#949FB1", "#4D5360"],
-    hoverBackgroundColor: ["#FF5A5E", "#5AD3D1", "#FFC870", "#A8B3C5", "#616774"]
-    }]
-    },
-    options: {
-    responsive: true
+        label: "Made me the happiest",
+        data: [90, 32, 10, 30, 12, 11, 20],
+        backgroundColor: [
+            'rgba(105, 0, 132, .2)',
+        ],
+        borderColor: [
+            'rgba(200, 99, 132, .7)',
+        ],
+        borderWidth: 2
+        },
+    {
+        label: "Made me the sadders",
+        data: [28, 48, 40, 19, 20, 27, 100],
+        backgroundColor: [
+            'rgba(0, 250, 220, .2)',
+        ],
+        borderColor: [
+            'rgba(0, 213, 132, .7)',
+        ],
+        borderWidth: 2
     }
+]
+},
+options: {
+responsive: true
+}
 });
