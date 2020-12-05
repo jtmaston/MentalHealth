@@ -70,6 +70,9 @@
               </div>
             </nav>
         <form method="POST" onSubmit="">
+
+            {% csrf_token %}
+
             <div class="form-entries-container">
                 <div class="form-item">
                 <h2>Sleep</h2>

@@ -20,7 +20,7 @@ var ctxR = document.getElementById("radarChart").getContext('2d');
 var myRadarChart = new Chart(ctxR, {
 type: 'radar',
 data: {
-    labels: ["Sports", "Music", "Reading", "Socializing", "Cooking", "Travelling", "Other"],
+    labels: ["Sleep", "Hobbies", "Social", "Health", "Self-improvement", "Food", "Other"],
     datasets: [{
         label: "Made me the happiest",
         data: [90, 32, 10, 30, 12, 11, 20],
@@ -49,6 +49,7 @@ options: {
 responsive: true
 }
 });
+
 
 //line
 var ctxL = document.getElementById("lineChart").getContext('2d');

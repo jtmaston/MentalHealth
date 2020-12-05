@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from django.contrib import messages
 from django.http import Http404
 from django.shortcuts import render, redirect, get_object_or_404
+from datetime import date
 
 # Create your views here.
 from django.views import View
@@ -76,23 +77,32 @@ class Login(View):
             return redirect(self.failure_url)
 
 
+mood_icons = {0: "fa-sad-cry", 1: "fa-frown", 2: "fa-smile", 3: "fa-laugh-beam"}
+
+activity_icons = {
+    0: ("Sleep", "fa-bed"),
+    1: ("Hobbies", "fa-guitar"),
+    2: ("Social", "fa-users"),
+    3: ("Health", "fa-medkit"),
+    4: ("Self Improvement", "fa-laugh-beam"),
+    5: ("Food", "fa-hamburger"),
+    6: ("Other", "")
+}
+
+
 class Dashboard(View):
     template_name = 'dashboard.html'
 
-    mood_icons = {0: "fa-sad-cry", 1: "fa-frown", 2: "fa-smile", 3: "fa-laugh-beam"}
-    activity_icons = {
-        0: ("Sports", "fa-dumbbell"),
-        1: ("Music", "fa-dumbbell"),
-        2: ("Reading", "fa-dumbbell"),
-        3: ("Socializing", "fa-dumbbell"),
-        4: ("Cooking", "fa-dumbbell"),
-        5: ("Travelling", "fa-dumbbell"),
-        6: ("", "")
+    weekly_mood = 0
+    fave_activity = 0
+    days = []
 
+    context = {
+        'entries': 34,
+        'entry_streak': 4,
+        'mood': mood_icons[weekly_mood],
+        'activity': activity_icons[fave_activity]
     }
-    mood = 0
-
-    context = {'entries': 34, 'entry_streak': 4, 'mood' :  mood_icons[mood]}
 
     def get(self, request):
         return render(template_name=self.template_name, request=request, context=self.context)
@@ -101,17 +111,17 @@ class Dashboard(View):
         pass
 
 
-class Entries(View):
+class New_entry(View):
     template_name = 'entries.html'
 
     def get(self, request):
         return render(template_name=self.template_name, request=request)
 
     def post(self, request):
-        pass
+        print(request)
 
 
-class New_entry(View):
+class Entries(View):
     template_name = 'new_entry.html'
 
     def get(self, request):
