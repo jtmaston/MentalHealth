@@ -33,7 +33,7 @@ data: {
         borderWidth: 2
         },
     {
-        label: "Made me the sadders",
+        label: "Made me the saddest",
         data: [28, 48, 40, 19, 20, 27, 100],
         backgroundColor: [
             'rgba(0, 250, 220, .2)',
@@ -44,6 +44,31 @@ data: {
         borderWidth: 2
     }
 ]
+},
+options: {
+responsive: true
+}
+});
+
+//line
+var ctxL = document.getElementById("lineChart").getContext('2d');
+var myLineChart = new Chart(ctxL, {
+type: 'line',
+data: {
+    labels: ["1 Dec", "2 Dec", "3 Dec", "4 Dec", "5 Dec", "6 Dec", "7 Dec"],
+    datasets: [
+        {
+            label: "Mood per days",
+            data: [0, 2, 1, 4, 1, 4, 1],
+            backgroundColor: [
+                'rgba(105, 0, 132, .2)',
+            ],
+            borderColor: [
+                'rgba(200, 99, 132, 1)',
+            ],
+            borderWidth: 2
+        }
+    ]
 },
 options: {
 responsive: true
