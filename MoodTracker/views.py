@@ -81,11 +81,30 @@ class Dashboard(View):
     template_name = 'dashboard.html'
 
     def get(self, request):
-        return render()
+        return render(template_name=self.template_name, request=request)
 
     def post(self, request):
         pass
 
+class Entries(View):
+
+    template_name = 'entries.html'
+
+    def get(self, request):
+        return render(template_name=self.template_name, request=request)
+
+    def post(self, request):
+        pass
+
+class New_entry(View):
+
+    template_name = 'new_entry.html'
+
+    def get(self, request):
+        return render(template_name=self.template_name, request=request)
+
+    def post(self, request):
+        pass
 
 def Logout(request):
     logout(request)

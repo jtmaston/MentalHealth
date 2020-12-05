@@ -56,26 +56,39 @@
           <!-- End Burger Menu -->
           <div id="mobile-nav is-active" class="navbar-menu ">
             <div class="navbar-end">
+              {% if user.is_authenticated %}
               <div class="navbar-item">
-                <a class="navbar-item" href="#home">
+                <a class="navbar-item" href="/entries">
                   Entries
                 </a>
               </div>
               <div class="navbar-item">
-                <a class="navbar-item" href="#about-me">
-                  Stats
-                </a>
-              </div>
-              <div class="navbar-item">
-                <a class="navbar-item" href="#services">
+                <a class="navbar-item" href="/calendar">
                   Calendar
                 </a>
               </div>
               <div class="navbar-item">
-                <a class="navbar-item" href="#skills">
+                <a class="navbar-item" href="/dashboard">
+                  Dashboard
+                </a>
+              </div>
+              <div class="navbar-item">
+                <a class="navbar-item" href="/radio">
                   Radio
                 </a>
               </div>
+              <div class="navbar-item">
+                <a class="navbar-item" href="/logout">
+                  Logout
+                </a>
+              </div>
+
+              {% else %}
+                <li>
+                  <a href="/login">Login</a>
+                </li>
+
+              {% endif %}
             </div>
           </div>
         </nav>
@@ -100,9 +113,6 @@
                   {% if user.is_authenticated %}
                     <li>
                       <a href="/entries">Entries</a>
-                    </li>
-                    <li>
-                      <a href="/stats">Stats</a>
                     </li>
                     <li>
                       <a href="/calendar">Calendar</a>
