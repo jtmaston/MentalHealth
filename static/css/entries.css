@@ -1,0 +1,20 @@
+.entries-container {
+    margin: 0 auto;
+}
+
+.form-entries-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.form-entries-container ul {
+    margin-bottom: 24px;
+}
+
+.form-item {
+    flex: 1;
+}
+
+

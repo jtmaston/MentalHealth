@@ -1,0 +1,191 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://unpkg.com/bulma@0.9.0/css/bulma.min.css" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/showcase.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/preloader.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/entries.css' %}"/>
+    <script
+      src="https://kit.fontawesome.com/2828f7885a.js"
+      integrity="sha384-WAsFbnLEQcpCk8lM1UTWesAf5rGTCvb2Y+8LvyjAAcxK1c3s5c0L+SYOgxvc6PWG"
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
+    <script src="{% static 'js/showcase.js' %}"></script>
+    <script src="{% static 'js/bulma.js' %}"></script>
+<!--    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"></script>-->
+    <link rel="icon" type="image/png" href="favicon.png" />
+    <title>Title</title>
+</head>
+<body>
+    <div class="entries-container container">
+         <nav class="navbar is-transparent">
+              <!-- Begin Burger Menu -->
+              <div class="navbar-brand">
+                <div class="navbar-burger burger" data-target="mobile-nav" onclick="document.querySelector('.navbar-menu').classList.toggle('is-active');">
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                </div>
+              </div>
+              <!-- End Burger Menu -->
+              <div id="mobile-nav is-active" class="navbar-menu ">
+                <div class="navbar-end">
+                  {% if user.is_authenticated %}
+                  <div class="navbar-item">
+                    <a class="navbar-item" href="/entries">
+                      Entries
+                    </a>
+                  </div>
+                  <div class="navbar-item">
+                    <a class="navbar-item" href="/calendar">
+                      Calendar
+                    </a>
+                  </div>
+                  <div class="navbar-item">
+                    <a class="navbar-item" href="/dashboard">
+                      Dashboard
+                    </a>
+                  </div>
+                  <div class="navbar-item">
+                    <a class="navbar-item" href="/radio">
+                      Radio
+                    </a>
+                  </div>
+                  <div class="navbar-item">
+                    <a class="navbar-item" href="/logout">
+                      Logout
+                    </a>
+                  </div>
+
+                  {% else %}
+                    <li>
+                      <a href="/login">Login</a>
+                    </li>
+
+                  {% endif %}
+                </div>
+              </div>
+            </nav>
+        <form method="POST" onSubmit="">
+            <div class="form-entries-container">
+                <div class="form-item">
+                <h2>Sleep</h2>
+                <ul>
+                    <li>
+                        <input id="sleep-early" name="sleep-early" type="checkbox">
+                        <label for="sleep-early">Sleep Early</label>
+                    </li>
+                    <li>
+                        <input id="good-sleep" name="good-sleep" type="checkbox">
+                        <label for="good-sleep">Good Sleep</label>
+                    </li>
+                    <li>
+                        <input id="medium-sleep" name="medium-sleep" type="checkbox">
+                        <label for="medium-sleep">Medium Sleep</label>
+                    </li>
+                     <li>
+                        <input id="bad-sleep" name="bad-sleep" type="checkbox">
+                        <label for="bad-sleep">Bad Sleep</label>
+                    </li>
+                </ul>
+
+                <h2>Hobbies</h2>
+                    <ul>
+                        <li>
+                            <input id="movies" name="movies" type="checkbox">
+                            <label for="movies">Movies And TV</label>
+                        </li>
+                        <li>
+                            <input id="reading" name="reading" type="checkbox">
+                            <label for="reading">Reading</label>
+                        </li>
+                        <li>
+                            <input id="gaming" name="gaming" type="checkbox">
+                            <label for="gaming">Gaming</label>
+                        </li>
+                         <li>
+                            <input id="travel" name="travel" type="checkbox">
+                            <label for="travel">Travel</label>
+                        </li>
+                    </ul>
+                </div>
+                <div class="form-item">
+                    <h2>Social</h2>
+                    <ul>
+                        <li>
+                            <input id="family" name="family" type="checkbox">
+                            <label for="family">Family</label>
+                        </li>
+                        <li>
+                            <input id="friends" name="friends" type="checkbox">
+                            <label for="friends">Friends</label>
+                        </li>
+                        <li>
+                            <input id="Date" name="Date" type="checkbox">
+                            <label for="date">Date</label>
+                        </li>
+                        <li>
+                            <input id="party" name="party" type="checkbox">
+                            <label for="party">Party</label>
+                        </li>
+                    </ul>
+                <h2>Health</h2>
+                <ul>
+                    <li>
+                        <input id="exercise" name="exercise" type="checkbox">
+                        <label for="exercise">Exercise</label>
+                    </li>
+                    <li>
+                        <input id="drink-water" name="drink-water" type="checkbox">
+                        <label for="drink-water">Drink Water</label>
+                    </li>
+                    <li>
+                        <input id="walk" name="walk" type="checkbox">
+                        <label for="walk">Walk</label>
+                    </li>
+                </ul>
+                </div>
+                <div class="form-item">
+                    <h2>Self Improvement</h2>
+                    <ul>
+                        <li>
+                            <input id="meditation" name="meditation" type="checkbox">
+                            <label for="meditation">Drink Water</label>
+                        </li>
+                        <li>
+                            <input id="kindness" name="kindness" type="checkbox">
+                            <label for="kindness">Kindness</label>
+                        </li>
+                        <li>
+                            <input id="breathing-techniques" name="breathing-techniques" type="checkbox">
+                            <label for="breathing-techniques">Breathing Techniques</label>
+                        </li>
+                    </ul>
+                    <h2>Food</h2>
+                    <ul>
+                        <li>
+                            <input id="eat-healthy" name="eat-healthy" type="checkbox">
+                            <label for="eat-healthy">Eat Healthy</label>
+                        </li>
+                        <li>
+                            <input id="fast-food" name="fast-food" type="checkbox">
+                            <label for="fast-food">Fast Food</label>
+                        </li>
+                        <li>
+                            <input id="home-made" name="home-made" type="checkbox">
+                            <label for="home-made">Home Made</label>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+                <div class="form-item">
+                    <button type="submit">Submit</button>
+                </div>
+        </form>
+    </div>
+
+</body>
+</html>
