@@ -11,6 +11,7 @@
     <script src="https://kit.fontawesome.com/15181efa86.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://unpkg.com/bulma@0.9.0/css/bulma.min.css" />
     <link rel="stylesheet" type="text/css" href="{% static 'css/ghost-blog.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/radio.css' %}">
   </head>
 
   <section class="hero is-medium">
@@ -44,7 +45,10 @@
             <div class="column is-12 post">
               <article class="columns featured">
                 <div class="column is-7 post-img ">
-                  <iframe width="560" height="315" src="{{ music_link }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                  <div class="video-wrapper">
+                    <iframe width="560" height="315" src="{{ music_link }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                  </div>
+
                 </div>
                 <div class="column is-5 featured-content va">
                   <div>

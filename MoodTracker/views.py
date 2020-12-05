@@ -1,6 +1,8 @@
 from json import dumps, loads
 from random import random, randint, choice
 
+import re
+
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.models import User
@@ -15,6 +17,15 @@ from .models import Entry
 
 # Create your views here.
 from django.views import View
+
+
+def mobile(request):
+    mobile_agent = re.compile(r".*(iphone|mobile|androidtouch)", re.IGNORECASE)
+
+    if mobile_agent.match(request.META['HTTP_USER_AGENT']):
+        return True
+    else:
+        return False
 
 
 class Index(View):
@@ -218,7 +229,11 @@ class Radio(View):
             with open("static/text/sad.txt", 'r') as f:
                 quote_list = f.readline()
 
-        return render(template_name=self.template_name, request=request, context={'music_link': choice(self.songs), 'motivational_text': choice(quote_list)})
+        return render(template_name=self.template_name, request=request, context={
+            'music_link': choice(self.songs),
+            'motivational_text': choice(quote_list),
+            'mobile': mobile(request)
+        })
 
 
 def Logout(request):
