@@ -25,7 +25,7 @@ SECRET_KEY = 'zv99a=d@#3ow3-tlz_2xw&uztwu_%58!$i8mo%%1*xt6wbmo_n'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'MoodTracker'
 ]
 
 MIDDLEWARE = [
