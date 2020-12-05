@@ -77,8 +77,11 @@ class Login(View):
 
 
 class Dashboard(View):
+
+    template_name = 'dashboard.html'
+
     def get(self, request):
-        pass
+        return render()
 
     def post(self, request):
         pass
