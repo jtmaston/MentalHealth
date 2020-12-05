@@ -60,7 +60,6 @@ class Login(View):
     def post(self, request):
         username = request.POST['usr']
         password = request.POST['pwd']
-        
 
         try:
             username = get_object_or_404(User, email=username)
