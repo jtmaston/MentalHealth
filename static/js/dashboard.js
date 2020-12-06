@@ -23,7 +23,7 @@ var ctxR = document.getElementById("radarChart").getContext('2d');
 var myRadarChart = new Chart(ctxR, {
 type: 'radar',
 data: {
-    labels: ["Sleep", "Hobbies", "Social", "Health", "Self-improvement", "Food", "Other"],
+    labels: ["Sports", "Music", "Reading", "Socializing", "Cooking", "Travelling", "Other"],
     datasets: [{
         label: "Made me the happiest",
         data: [90, 32, 10, 30, 12, 11, 20],

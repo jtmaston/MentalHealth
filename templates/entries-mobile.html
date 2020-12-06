@@ -1,0 +1,147 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Inbox - Free Bulma template</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
+    <!-- Bulma Version 0.9.0-->
+    <link rel="stylesheet" href="https://unpkg.com/bulma@0.9.0/css/bulma.min.css"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/inbox.css' %}">
+</head>
+
+<body class="has-navbar-fixed-top">
+
+<nav class="navbar is-fixed-top">
+    <div class="container">
+        <div class="navbar-brand">
+
+			<span class="navbar-burger burger" data-target="navbarMenu"
+                  onclick="document.querySelector('.navbar-menu').classList.toggle('is-active');">
+				<span></span>
+				<span></span>
+				<span></span>
+			</span>
+        </div>
+        <div id="navbarMenu" class="navbar-menu">
+            <div class="navbar-end">
+                <a class="navbar-item" href="/">Home</a>
+                <a class="navbar-item" href="/entries">Entries</a>
+                <a class="navbar-item" href="/radio">Radio</a>
+                <a class="navbar-item" href="/dashboard">Dashboard</a>
+                <a class="navbar-item is-hidden-desktop" href="/profile">Profile</a>
+                <a class="navbar-item is-hidden-desktop" href="/logout">Logout</a>
+
+                <div class="navbar-item has-dropdown is-hoverable">
+                    <a class="navbar-link is-hidden-mobile">Other</a>
+                    <div class="navbar-dropdown is-hidden-mobile">
+                        <a class="navbar-item" href="/profile">Profile</a>
+                        <a class="navbar-item" href="/settings">Settings</a>
+                        <hr class="navbar-divider">
+                        <a class="navbar-item" href="/logout">Logout</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</nav>
+
+<div id="mail-app" class="columns">
+    <aside class="column is-2 aside hero">
+        <div>
+            <div class="compose has-text-centered"><a class="button is-danger is-block is-bold"><span class="compose">New entry</span></a>
+            </div>
+        </div>
+    </aside>
+    <div id="message-feed" class="column is-4 messages hero">
+        <div id="inbox-messages" class="inbox-messages">
+
+            <div id="msg-card-0" data-preview-id="0" class="card active">
+                <div class="card-content">
+                    <div class="msg-subject"><span class="msg-subject"><strong >Friday, December 4</strong></span>
+                    </div>
+                    <div class="msg-snippet"><p id="fake-snippet-1">Overall mood: Very happy</p></div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+    <div id="message-pane" class="column is-6 message hero">
+        <div class="box message-preview">
+            <div class="top">
+                <div class="avatar"><i class="fas fa-laugh-beam fa-3x"></i></div>
+                <div class="address">
+                    <div class="name">Friday, December 4</div>
+                    <div class="email">Sports, Cooking, Social</div>
+                </div>
+                <hr>
+                <div class="content"><p>
+                    Tried cooking spaghetti for the first time today. It went very very well!!! The recipe was super
+                    easy
+                    and results were amazingly tasty. I must try this again in the future.
+
+                    <br>
+                    <br>
+
+                    I also met with Ted, over drinks at the pub. Wasn't half-bad, he tells a good joke and seems like an
+                    ok guy. Not sure if I'm gonna recruit him for the project, his skills aren't the best... In any
+                    case,
+                    it was fun.
+
+                    <br>
+                    <br>
+
+                    Exercised a bit, felt relaxing and calming, as usual.
+
+                    <br>
+                    <br>
+
+                    I really like this journaling app.
+
+                </p></div>
+            </div>
+        </div>
+    </div>
+</div>
+<footer class="footer">
+    <div class="container">
+        <div class="content has-text-centered">
+            <p>
+                <strong>Bulma Templates</strong> by <a href="https://github.com/dansup">Daniel Supernault</a>. The
+                source code is licensed
+                <a href="http://opensource.org/licenses/mit-license.php">MIT</a>.
+            </p>
+            <p>
+                <a class="icon" href="https://github.com/BulmaTemplates/bulma-templates">
+                    <i class="fa fa-github"></i>
+                </a>
+            </p>
+        </div>
+    </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"
+        integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/vue@2.5.16/dist/vue.min.js"></script>
+<script src="{% static 'js/bulma.js' %}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Faker/3.1.0/faker.min.js"
+        integrity="sha256-QHdJObhDO++VITP6S4tMlDHRWMaUOk+s/xWIRgF/YY0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.1/moment.min.js"
+        integrity="sha256-4PIvl58L9q7iwjT654TQJM+C/acEyoG738iL8B8nhXg=" crossorigin="anonymous"></script>
+<script src="{% static 'js/entries.js' %}"></script>
+<script
+        src="https://kit.fontawesome.com/2828f7885a.js"
+        integrity="sha384-WAsFbnLEQcpCk8lM1UTWesAf5rGTCvb2Y+8LvyjAAcxK1c3s5c0L+SYOgxvc6PWG"
+        crossorigin="anonymous"
+></script>
+
+
+</body>
+</html>

@@ -95,7 +95,7 @@ class Login(View):
             return redirect(self.failure_url)
 
 
-mood_icons = {0: "fa-sad-cry", 1: "fa-frown", 2: "fa-smile", 3: "fa-laugh-beam"}
+mood_icons = {1: "fa-sad-cry", 2: "fa-frown", 3: "fa-smile", 4: "fa-laugh-beam"}
 
 activity_icons = {
     "sleep": "fa-bed",
@@ -111,71 +111,81 @@ activity_icons = {
 class Dashboard(View):
     template_name = 'dashboard.html'
 
-    last_seven = Entry.objects.filter().order_by('-id')[:7]
-
-    weekly_mood = 0
-    weekly_moods = []
-    weekly_activities = []
-
-    for i in last_seven:
-        weekly_mood += i.mood
-        weekly_moods += [i.mood]
-        weekly_activities += loads(i.activity).keys()
-
-    weekly_activity = max(set(weekly_activities), key=weekly_activities.count)
-    weekly_mood = int(weekly_mood / 7)
-
-    weekly_moods = weekly_moods[::-1]
-    percentages = []
-
-    for i in range(1, 5):
-        percentages.append(weekly_moods.count(i))
-    percentages = [int(i / 7 * 100) for i in percentages]
-
-    print(percentages)
-
-    context = {
-        'entries': Entry.objects.count(),
-        'entry_streak': 4,
-        'mood': mood_icons[weekly_mood],
-        'activity': weekly_activity,
-        'activity_icon': activity_icons[weekly_activity],
-        'weekly_moods': weekly_moods,
-        'percentages': percentages
-    }
-
     def get(self, request):
-        return render(template_name=self.template_name, request=request, context=self.context)
 
-    def post(self, request):
-        pass
+        last_seven = Entry.objects.filter().order_by('-id')[:7]
+
+        weekly_mood = 0
+        weekly_moods = []
+        weekly_activities = []
+
+        for i in last_seven:
+            weekly_mood += i.mood
+            weekly_moods += [i.mood]
+            weekly_activities += loads(i.activity).keys()
+
+        weekly_activity = max(set(weekly_activities), key=weekly_activities.count)
+
+        weekly_moods = weekly_moods[::-1]
+        percentages = []
+
+        for i in range(1, 5):
+            percentages.append(weekly_moods.count(i))
+        percentages = [int(i / 7 * 100) for i in percentages]
+
+        weekly_mood = percentages.index(max(percentages)) + 1
+
+
+        context = {
+            'entries': Entry.objects.count(),
+            'entry_streak': 4,
+            'mood': mood_icons[weekly_mood],
+            'activity': weekly_activity,
+            'activity_icon': activity_icons[weekly_activity],
+            'weekly_moods': weekly_moods,
+            'percentages': percentages
+        }
+
+        return render(template_name=self.template_name, request=request, context=context)
 
 
 class Entries(View):
-    template_name = 'entries.html'
+    template_name = ""
 
     def get(self, request):
-        return render(template_name=self.template_name, request=request)
+
+        if mobile(request):
+            self.template_name = 'entries-mobile.html'
+        else:
+            self.template_name = 'entries-desktop.html'
+
+        all_entries = Entry.objects.filter().order_by('-id')
+
+        print(all_entries)
+
+        entries = []
+        for index, i in enumerate(all_entries):
+            entries.append({
+                'id': index,
+                'mood': {1: 'very sad', 2: 'sad', 3: 'happy', 4: 'very happy'}[i.mood],
+                'date': i.date_added.strftime("%-d %B %Y")
+            })
+
+        return render(template_name=self.template_name, request=request, context={'entries': entries})
 
     def post(self, request):
-        activity_categories = {
-            'sleep': ['sleep-early', 'good-sleep', 'medium-sleep', 'bad-sleep'],
-            'hobbies': ['movies', 'reading', 'gaming', 'travel'],
-            'social': ['family', 'friends', 'date', 'party'],
-            'health': ['exercise', 'drink-water', 'walk'],
-            'self-improvement': ['meditation', 'kindness', 'breathing-techniques'],
-            'food': ['eat-healthy', 'home-made', 'fast-food']
-        }
+        activity_categories = [
+            "Sleep", "Hobbies", "Social", "Health", "Self-improvement", "Food", "Other"
+        ]
 
         activity = {}
 
         for i in request.POST.keys():
-            for j in activity_categories.keys():
-                if i in activity_categories[j]:
-                    try:
-                        activity[j] += i
-                    except KeyError:
-                        activity[j] = [i]
+            if i in activity_categories:
+                try:
+                    activity += i
+                except KeyError:
+                    activity = [i]
 
         print(activity)
 
@@ -234,6 +244,28 @@ class Radio(View):
             'motivational_text': choice(quote_list),
             'mobile': mobile(request)
         })
+
+
+class Replier(View):
+
+    def get(self, request, reply_id):
+        timestamp = None
+        categories = None
+        content = None
+
+        response = f'''<div class="box message-preview">
+                            <div class="top">
+                                <div class="avatar"><i class="fas fa-laugh-beam fa-3x"></i></div>
+                                <div class="address">
+                                    <div class="name">{timestamp}</div>
+                                    <div class="email">{categories}</div>
+                                </div>
+                                <hr>
+                                <div class="content"><p>
+                                    {content}
+                                </p></div>
+                            </div>
+                        </div>'''
 
 
 def Logout(request):
