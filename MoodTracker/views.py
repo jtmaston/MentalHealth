@@ -13,6 +13,9 @@ from django.utils import timezone
 import pytz
 
 from datetime import date, datetime
+
+from lorem import paragraph
+
 from .models import Entry
 
 # Create your views here.
@@ -140,7 +143,7 @@ class Dashboard(View):
             'entry_streak': 4,
             'mood': mood_icons[weekly_mood],
             'activity': weekly_activity,
-            'activity_icon': activity_icons[weekly_activity],
+            'activity_icon': activity_icons[weekly_activity.lower()],
             'weekly_moods': weekly_moods,
             'percentages': percentages
         }
@@ -174,7 +177,6 @@ class Entries(View):
         activity_categories = [
             "Sleep", "Hobbies", "Social", "Health", "Self-improvement", "Food", "Other"
         ]
-
         activity = {}
 
         for i in request.POST.keys():
@@ -266,6 +268,36 @@ class Replier(View):
                             </div>
                         </div>'''
         return HttpResponse(response)
+
+
+class Fill_DB(View):
+    def get(selfs, request):
+        days = [
+            date.fromisoformat("2020-12-01"),
+            date.fromisoformat("2020-12-02"),
+            date.fromisoformat("2020-12-03"),
+            date.fromisoformat("2020-12-04"),
+            date.fromisoformat("2020-12-05"),
+            date.fromisoformat("2020-12-06"),
+            date.fromisoformat("2020-12-07"),
+        ]
+
+        activity_categories = [
+            "Sleep", "Hobbies", "Social", "Health", "Self-improvement", "Food", "Other"
+        ]
+
+        for index, date_elem in enumerate(days):
+            query = Entry.objects.create(
+                date_added=datetime(year=date_elem.year, month=date_elem.month, day=date_elem.day),
+                author=get_object_or_404(User, username='alex'),
+                mood=randint(3, 4),
+                activity=dumps({f'{choice(activity_categories)}': 'a', f'{choice(activity_categories)}': 'a'}),
+                note=f"{paragraph()} \n \n {paragraph()}"
+            )
+        query.save()
+
+        return redirect("/dashboard")
+
 
 def Logout(request):
     logout(request)

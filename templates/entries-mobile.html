@@ -59,55 +59,27 @@
             </div>
         </div>
     </aside>
+
     <div id="message-feed" class="column is-4 messages hero">
         <div id="inbox-messages" class="inbox-messages">
 
-            <div id="msg-card-0" data-preview-id="0" class="card active">
-                <div class="card-content">
-                    <div class="msg-subject"><span class="msg-subject"><strong >Friday, December 4</strong></span>
-                    </div>
-                    <div class="msg-snippet"><p id="fake-snippet-1">Overall mood: Very happy</p></div>
-                </div>
-            </div>
+            {% for entry in entries %}
 
+                <div id="msg-card-{{ entry.id }}" data-preview-id="0" class="card active" onclick="load_message(this.id);">
+                    <div class="card-content">
+                        <div class="msg-subject"><span class="msg-subject"><strong >{{ entry.date }}</strong></span>
+                        </div>
+                        <div class="msg-snippet"><p>Overall mood: {{ entry.mood }}</p></div>
+                    </div>
+                </div>
+
+            {% endfor %}
 
         </div>
     </div>
+
     <div id="message-pane" class="column is-6 message hero">
-        <div class="box message-preview">
-            <div class="top">
-                <div class="avatar"><i class="fas fa-laugh-beam fa-3x"></i></div>
-                <div class="address">
-                    <div class="name">Friday, December 4</div>
-                    <div class="email">Sports, Cooking, Social</div>
-                </div>
-                <hr>
-                <div class="content"><p>
-                    Tried cooking spaghetti for the first time today. It went very very well!!! The recipe was super
-                    easy
-                    and results were amazingly tasty. I must try this again in the future.
-
-                    <br>
-                    <br>
-
-                    I also met with Ted, over drinks at the pub. Wasn't half-bad, he tells a good joke and seems like an
-                    ok guy. Not sure if I'm gonna recruit him for the project, his skills aren't the best... In any
-                    case,
-                    it was fun.
-
-                    <br>
-                    <br>
-
-                    Exercised a bit, felt relaxing and calming, as usual.
-
-                    <br>
-                    <br>
-
-                    I really like this journaling app.
-
-                </p></div>
-            </div>
-        </div>
+        <!-- autocompleted using jquery -->
     </div>
 </div>
 <footer class="footer">
