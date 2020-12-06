@@ -116,37 +116,49 @@ class Dashboard(View):
 
     def get(self, request):
 
-        last_seven = Entry.objects.filter().order_by('-id')[:7]
+        last_seven = Entry.objects.filter(author=get_object_or_404(User, username=request.user)).order_by('-id')[:7]
 
-        weekly_mood = 0
-        weekly_moods = []
-        weekly_activities = []
+        if len(last_seven) != 0:
 
-        for i in last_seven:
-            weekly_mood += i.mood
-            weekly_moods += [i.mood]
-            weekly_activities += loads(i.activity).keys()
+            weekly_mood = 0
+            weekly_moods = []
+            weekly_activities = []
 
-        weekly_activity = max(set(weekly_activities), key=weekly_activities.count)
+            for i in last_seven:
+                weekly_mood += i.mood
+                weekly_moods += [i.mood]
+                weekly_activities += loads(i.activity).keys()
 
-        weekly_moods = weekly_moods[::-1]
-        percentages = []
+            weekly_activity = max(set(weekly_activities), key=weekly_activities.count)
 
-        for i in range(1, 5):
-            percentages.append(weekly_moods.count(i))
-        percentages = [int(i / 7 * 100) for i in percentages]
+            weekly_moods = weekly_moods[::-1]
+            percentages = []
 
-        weekly_mood = percentages.index(max(percentages)) + 1
+            for i in range(1, 5):
+                percentages.append(weekly_moods.count(i))
+            percentages = [int(i / 7 * 100) for i in percentages]
 
-        context = {
-            'entries': Entry.objects.count(),
-            'entry_streak': 4,
-            'mood': mood_icons[weekly_mood],
-            'activity': weekly_activity,
-            'activity_icon': activity_icons[weekly_activity.lower()],
-            'weekly_moods': weekly_moods,
-            'percentages': percentages
-        }
+            weekly_mood = percentages.index(max(percentages)) + 1
+
+            context = {
+                'entries': Entry.objects.count(),
+                'entry_streak': 4,
+                'mood': mood_icons[weekly_mood],
+                'activity': weekly_activity,
+                'activity_icon': activity_icons[weekly_activity.lower()],
+                'weekly_moods': weekly_moods,
+                'percentages': percentages
+            }
+        else:
+            context = {
+                'entries': 0,
+                'entry_streak': 0,
+                'mood': None,
+                'activity': None,
+                'activity_icon': None,
+                'weekly_moods': [],
+                'percentages': []
+            }
 
         return render(template_name=self.template_name, request=request, context=context)
 
