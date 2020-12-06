@@ -65,7 +65,7 @@
 
             {% for entry in entries %}
 
-                <div id="msg-card- {{ entry.id }} " data-preview-id="0" class="card active" onclick="load_message(this.id);">
+                <div id="msg-card-{{ entry.id }}" data-preview-id="0" class="card active" onclick="load_message(this.id);">
                     <div class="card-content">
                         <div class="msg-subject"><span class="msg-subject"><strong >{{ entry.date }}</strong></span>
                         </div>

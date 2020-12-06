@@ -135,7 +135,6 @@ class Dashboard(View):
 
         weekly_mood = percentages.index(max(percentages)) + 1
 
-
         context = {
             'entries': Entry.objects.count(),
             'entry_streak': 4,
@@ -159,9 +158,7 @@ class Entries(View):
         else:
             self.template_name = 'entries-desktop.html'
 
-        all_entries = Entry.objects.filter().order_by('-id')
-
-        print(all_entries)
+        all_entries = Entry.objects.filter(author=get_object_or_404(User, username=request.user)).order_by('-id')
 
         entries = []
         for index, i in enumerate(all_entries):
@@ -225,7 +222,7 @@ class Radio(View):
     def get(self, request):
 
         weekly_mood = 0
-        last_seven = Entry.objects.filter().order_by('-id')[:7]
+        last_seven = Entry.objects.filter(author=get_object_or_404(User, username=request.user)).order_by('-id')[:7]
 
         for i in last_seven:
             weekly_mood += i.mood
