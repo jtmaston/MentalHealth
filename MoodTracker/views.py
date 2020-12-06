@@ -302,7 +302,7 @@ class Fill_DB(View):
             query = Entry.objects.create(
                 date_added=datetime(year=date_elem.year, month=date_elem.month, day=date_elem.day),
                 author=get_object_or_404(User, username=request.user),
-                mood=randint(3, 4),
+                mood=randint(2, 4),
                 activity=dumps({f'{choice(activity_categories)}': 'a', f'{choice(activity_categories)}': 'a'}),
                 note=f"{paragraph()} \n \n {paragraph()}"
             )
