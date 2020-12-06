@@ -11,5 +11,5 @@ urlpatterns = [
     path('entries/', views.Entries.as_view()),
     path('radio/', views.Radio.as_view()),
     path('entry_replier/<int:reply_id>/', views.Replier.as_view(), name='reply_id'),
-    path('fill_db', views.Fill_DB.as_view())
+    # path('fill_db', views.Fill_DB.as_view())
 ]
