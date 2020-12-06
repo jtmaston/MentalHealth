@@ -147,7 +147,8 @@ class Dashboard(View):
                 'activity': weekly_activity,
                 'activity_icon': activity_icons[weekly_activity.lower()],
                 'weekly_moods': weekly_moods,
-                'percentages': percentages
+                'percentages': percentages,
+                'empty': 0
             }
         else:
             context = {
@@ -157,7 +158,8 @@ class Dashboard(View):
                 'activity': None,
                 'activity_icon': None,
                 'weekly_moods': [],
-                'percentages': []
+                'percentages': [],
+                'empty': 1
             }
 
         return render(template_name=self.template_name, request=request, context=context)
@@ -304,7 +306,7 @@ class Fill_DB(View):
                 author=get_object_or_404(User, username=request.user),
                 mood=randint(2, 4),
                 activity=dumps({f'{choice(activity_categories)}': 'a', f'{choice(activity_categories)}': 'a'}),
-                note=f"{paragraph()} \n \n {paragraph()}"
+                note=f"{paragraph()} \n \n {paragraph()}",
             )
         query.save()
 

@@ -19,14 +19,27 @@ responsive: true
 });
 
 //radar
+
+var empty = parseInt(document.getElementById("empty").value);
 var ctxR = document.getElementById("radarChart").getContext('2d');
+if( empty == 1){
+        var good = [];
+        var bad = [];
+} else{
+    var good = [90, 32, 10, 30, 12, 11, 20];
+    var bad = [28, 48, 40, 19, 20, 27, 100];
+}
 var myRadarChart = new Chart(ctxR, {
 type: 'radar',
 data: {
     labels: ["Sports", "Music", "Reading", "Socializing", "Cooking", "Travelling", "Other"],
+
+
+
+
     datasets: [{
         label: "Made me the happiest",
-        data: [90, 32, 10, 30, 12, 11, 20],
+        data: good,
         backgroundColor: [
             'rgba(105, 0, 132, .2)',
         ],
@@ -37,7 +50,7 @@ data: {
         },
     {
         label: "Made me the saddest",
-        data: [28, 48, 40, 19, 20, 27, 100],
+        data: bad,
         backgroundColor: [
             'rgba(0, 250, 220, .2)',
         ],
