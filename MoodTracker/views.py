@@ -301,7 +301,7 @@ class Fill_DB(View):
         for index, date_elem in enumerate(days):
             query = Entry.objects.create(
                 date_added=datetime(year=date_elem.year, month=date_elem.month, day=date_elem.day),
-                author=get_object_or_404(User, username='alex'),
+                author=get_object_or_404(User, username=request.user),
                 mood=randint(3, 4),
                 activity=dumps({f'{choice(activity_categories)}': 'a', f'{choice(activity_categories)}': 'a'}),
                 note=f"{paragraph()} \n \n {paragraph()}"
