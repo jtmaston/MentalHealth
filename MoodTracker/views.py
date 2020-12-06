@@ -7,7 +7,7 @@ from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.models import User
 from django.contrib import messages
-from django.http import Http404
+from django.http import Http404, HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.utils import timezone
 import pytz
@@ -161,9 +161,9 @@ class Entries(View):
         all_entries = Entry.objects.filter(author=get_object_or_404(User, username=request.user)).order_by('-id')
 
         entries = []
-        for index, i in enumerate(all_entries):
+        for i in all_entries:
             entries.append({
-                'id': index,
+                'id': i.id,
                 'mood': {1: 'very sad', 2: 'sad', 3: 'happy', 4: 'very happy'}[i.mood],
                 'date': i.date_added.strftime("%-d %B %Y")
             })
@@ -246,24 +246,26 @@ class Radio(View):
 class Replier(View):
 
     def get(self, request, reply_id):
-        timestamp = None
-        categories = None
-        content = None
+        categories = ""
+        entry = Entry.objects.filter(id=reply_id)[0]
+
+        for i in loads(entry.activity).keys():
+            categories = categories + i + " "
 
         response = f'''<div class="box message-preview">
                             <div class="top">
-                                <div class="avatar"><i class="fas fa-laugh-beam fa-3x"></i></div>
+                                <div class="avatar"><i class="fas {mood_icons[entry.mood]} fa-3x"></i></div>
                                 <div class="address">
-                                    <div class="name">{timestamp}</div>
+                                    <div class="name">{entry.date_added.strftime("%-d %B %Y")}</div>
                                     <div class="email">{categories}</div>
                                 </div>
                                 <hr>
                                 <div class="content"><p>
-                                    {content}
+                                    {entry.note}
                                 </p></div>
                             </div>
                         </div>'''
-
+        return HttpResponse(response)
 
 def Logout(request):
     logout(request)
